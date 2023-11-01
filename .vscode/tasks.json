@@ -12,7 +12,7 @@
             "command": "dotnet",
             "args": [
                 "clean",
-                "${workspaceFolder}/src/api/Todo.Api.csproj",
+                "${workspaceFolder}/src/api/api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -27,7 +27,7 @@
             "command": "dotnet",
             "args": [
                 "build",
-                "${workspaceFolder}/src/api/Todo.Api.csproj",
+                "${workspaceFolder}/src/api/api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -63,7 +63,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/api/Todo.Api.csproj"
+                "${workspaceFolder}/src/api/api.csproj"
             ],
             "problemMatcher": "$msCompile"
         },

@@ -1,4 +1,5 @@
 {
     "azureFunctions.projectLanguage": "C#",
-    "azureFunctions.projectRuntime": "~4"
+    "azureFunctions.projectRuntime": "~4",
+    "azureFunctions.projectSubpath": "src/api"
 }

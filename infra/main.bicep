@@ -29,6 +29,9 @@ param apimServiceName string = ''
 @description('Flag to use Azure API Management to mediate the calls between the Web frontend and the backend API')
 param useAPIM bool = false
 
+@description('Flag to use Azure SQL')
+param useSQL bool = false
+
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
@@ -76,7 +79,7 @@ module api './app/api.bicep' = {
     storageAccountName: storage.outputs.name
     allowedOrigins: [ web.outputs.SERVICE_WEB_URI ]
     appSettings: {
-      AZURE_SQL_CONNECTION_STRING_KEY: sqlServer.outputs.connectionStringKey
+      AZURE_SQL_CONNECTION_STRING_KEY: useSQL? sqlServer.outputs.connectionStringKey: ''
     }
   }
 }
@@ -92,7 +95,7 @@ module apiKeyVaultAccess './core/security/keyvault-access.bicep' = {
 }
 
 // The application database
-module sqlServer './app/db.bicep' = {
+module sqlServer './app/db.bicep' = if (useSQL) {
   name: 'sql'
   scope: rg
   params: {
@@ -186,7 +189,7 @@ module apimApi './app/apim-api.bicep' = if (useAPIM) {
 }
 
 // Data outputs
-output AZURE_SQL_CONNECTION_STRING_KEY string = sqlServer.outputs.connectionStringKey
+output AZURE_SQL_CONNECTION_STRING_KEY string = useSQL ? sqlServer.outputs.connectionStringKey : ''
 
 // App outputs
 output APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
